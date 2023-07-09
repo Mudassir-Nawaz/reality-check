@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  repo: Mudassir-Nawaz/reality-check
+  branch: master
+# This line should *not* be indented
+media_folder: "static/img/media" # Media files will be stored in the repo under images/uploads
+public_folder: "/img/media"
+collections:
+  - name: "media"
+    label: "Media"
+    folder: "content/media"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Youtube Video ID", name: "youtube_id", widget: "string", required: false}
+      - {label: "Call to Action (button text)", name: "cta", widget: "string", required: false}
+      - {label: "Order", name: "weight", widget: "number", value_type: "int"}
+      - {label: "Description", name: "description", widget: "string", required: false}
+      - {label: "Body", name: "body", widget: "markdown", required: false}

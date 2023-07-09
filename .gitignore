@@ -1,0 +1,7 @@
+/.idea/
+/public/
+/resources/
+input.css
+node_modules
+.hugo_build.lock
+tailwind.config.js

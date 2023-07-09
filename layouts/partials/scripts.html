@@ -1,0 +1,209 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/jquery.flexslider-min.js"></script>
+{{ $js := resources.Get "js/plugins.js" }}
+{{ $secureJS := $js | resources.Minify }}
+<script type="text/javascript" src="{{ $secureJS.Permalink }}"></script>
+
+<script>
+    /* Form Focus */
+    $('.labelToggle input, .labelToggle textarea, .labelToggle select').on("focus change keyup blur input", function() {
+            $(this).parent().addClass("toggle-label");
+        }
+    );
+    /* AOS */
+    AOS.init({
+        easing: 'ease-out-cubic',
+        duration: 1500,
+        mirror: false,
+        once: true
+    });
+</script>
+
+<script>
+
+    $('.open-popup-link').magnificPopup({
+        type:'inline',
+        midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        // Delay in milliseconds before popup is removed
+        removalDelay: 300,
+
+        // Class that is added to popup wrapper and background
+        // make it unique to apply your CSS animations just to this exact popup
+        mainClass: 'mfp-fade'
+    });
+
+    // $('.snipcart-add-item').on( "click", function() {
+    //     $.magnificPopup.close();
+    // });
+
+    jQuery(window).load(function() {
+        jQuery('#testimonialSlide').flexslider({
+            animation: "fade",
+            easing: "swing",
+            directionNav: false,
+            controlNav: false,
+            slideshow: true,
+            touch: true,
+            slideshowSpeed: 4000,
+            animationSpeed: 600
+        });
+    });
+
+
+</script>
+<script async src="https://cdn.snipcart.com/themes/v3.0.29/default/snipcart.js"></script>
+<div id="snipcart" data-config-modal-style="side" data-api-key="MzNlZmE2OTItMzAxNy00ZjRhLTg3ZmMtODk4Y2EwZTU3YjljNjM3MzU5NTQzMzA4Nzc1MDc4" hidden>
+
+
+    <billing>
+        <div class="snipcart__box">
+            <div class="snipcart__box--header">
+                <div class="snipcart__box--title">
+                    <div class="snipcart__box--badge snipcart__box--badge snipcart__box--badge-highlight snipcart__font--bold snipcart__font--secondary">{{" {{ number }} "}}</div>
+                    <h1 class="snipcart__font--subtitle">
+                        {{" {{ $localize('billing.title') }} "}}
+                    </h1>
+                </div>
+            </div>
+
+            <snipcart-error-message :show-fields-errors="false"></snipcart-error-message>
+
+            <overridable name="billing" section="top"></overridable>
+
+            <fieldset class="snipcart-form__set">
+                <div class="snipcart-form__field">
+                    <snipcart-label class="snipcart__font--tiny" for="name">
+                        First Name
+                    </snipcart-label>
+
+                    <snipcart-input name="firstname" required></snipcart-input>
+                    <snipcart-error-message name="firstname"></snipcart-error-message>
+                </div>
+                <div class="snipcart-form__field">
+                    <snipcart-label class="snipcart__font--tiny" for="name">
+                        Last Name
+                    </snipcart-label>
+
+                    <snipcart-input name="lastname" required></snipcart-input>
+                    <snipcart-error-message name="lastname"></snipcart-error-message>
+                </div>
+                <div class="snipcart-form__field" style="display:none !important;">
+                    <snipcart-label class="snipcart__font--tiny" for="name">
+                        {{" {{ $localize('address_form.name') }} "}}
+                    </snipcart-label>
+
+                    <snipcart-input name="name"></snipcart-input>
+                    <snipcart-error-message name="name"></snipcart-error-message>
+                </div>
+
+                <div class="snipcart-form__field">
+                    <snipcart-label class="snipcart__font--tiny" for="email">
+                        Email Address
+                    </snipcart-label>
+
+                    <snipcart-input name="email" v-if="!emailIsReadonly"></snipcart-input>
+                    <span class="snipcart__font--secondary snipcart__font--bold" v-else>{{" {{ customer.email }} "}}</span>
+                    <snipcart-error-message name="email"></snipcart-error-message>
+                </div>
+            </fieldset>
+
+            <address-fields type="billing"></address-fields>
+
+            <hr class="snipcart-form__separator" v-if="shippingEnabled" />
+
+            <fieldset class="snipcart-form__set snipcart-form__set--different-shipping" v-if="shippingEnabled && !hasOnlyNonShippableGoods">
+                <div class="snipcart-form__field">
+                    <div class="snipcart-form__field-checkbox">
+                        <snipcart-checkbox name="useDifferentShippingAddress" />
+
+                        <snipcart-label class="snipcart__font--tiny snipcart-form__label--checkbox" for="useDifferentShippingAddress">
+                            {{" {{ $localize('billing.use_different_shipping_address') }} "}}
+                        </snipcart-label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <overridable name="billing" section="bottom"></overridable>
+
+            <div class="snipcart-form__footer">
+                <snipcart-submit class="snipcart-cart-button--highlight snipcart__font--large">
+                    {{" {{ hasShippingStep ? $localize('billing.continue_to_shipping') : $localize('payment.continue_to_payment') }} "}}
+                </snipcart-submit>
+            </div>
+        </div>
+    </billing>
+
+
+</div>
+
+<script>
+
+    document.addEventListener("snipcart.ready", () => {
+        Snipcart.events.on("theme.routechanged", (routesChange) => {
+            if (routesChange.from === "/" && routesChange.to !== "/") {
+                fbq("track", "ViewContent");
+            }
+
+            if (routesChange.from !== "/" && routesChange.to === "/") {
+                fbq("track", "ViewContent");
+            }
+
+            if (
+                routesChange.from !== "/checkout" &&
+                routesChange.to === "/checkout"
+            ) {
+                fbq("track", "InitiateCheckout");
+            }
+        });
+
+        Snipcart.events.on("item.added", (cartItem) => {
+            fbq("track", "AddToCart");
+        });
+
+        Snipcart.events.on("cart.confirmed", (cartState) => {
+            fbq("track", "Purchase", {
+                value: cartState.total,
+                currency: "USD"
+            });
+        });
+    });
+
+    const bindNameInputListeners = () => {
+        setTimeout(() => {
+            console.log('binding name input')
+            const firstnameInput = document.querySelector('#firstname.snipcart-input__input')
+            const lastnameInput = document.querySelector('#lastname.snipcart-input__input')
+            const fullnameInput = document.querySelector('#name.snipcart-input__input')
+
+            const setFullname = () => {
+                var event = new Event('input', {
+                    bubbles: true,
+                    cancelable: true,
+                });
+                fullnameInput.value = firstnameInput.value + " " + lastnameInput.value
+                fullnameInput.dispatchEvent(event)
+            }
+
+
+            firstnameInput.addEventListener('input', setFullname)
+            lastnameInput.addEventListener('input', setFullname)
+        }, 0)
+    }
+
+    document.addEventListener('snipcart.ready', () => {
+        Snipcart.events.on('theme.routechanged', (routesChange) => {
+            if (routesChange.to === "/checkout") {
+                bindNameInputListeners()
+            }
+        })
+    });
+
+</script>
+
+<script type="text/javascript">
+    (function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
+    vgo('setAccount', '67357932');
+    vgo('setTrackByDefault', true);
+
+    vgo('process');
+</script>

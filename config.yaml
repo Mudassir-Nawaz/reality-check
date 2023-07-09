@@ -1,0 +1,19 @@
+baseURL:  /
+languageCode: en-us
+title: Reality Check | For the first time, Mike “The Situation” Sorrentino opens up about his crippling drug addiction, finding himself broke and homeless, losing friends and family to overdoses, and going to prison.
+disableKinds:
+  - taxonomy
+  - taxonomyTerm
+enableRobotsTXT: true
+markup:
+  goldmark:
+    parser:
+      autoHeadingID: false
+    renderer:
+      unsafe: true
+
+params:
+  # description: >-
+  # google_analytics: UA-159464846-1
+  #paid_for: Paid for by Language Goes Here
+  copyright: Copyright 2020 Ballast Books - All Rights Reserved
