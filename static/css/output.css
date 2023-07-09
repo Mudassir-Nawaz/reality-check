@@ -660,6 +660,15 @@ video {
   line-height: 1rem;
 }
 
+.tw-text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.tw-font-light {
+  font-weight: 300;
+}
+
 .tw-text-\[\#a22c34\] {
   --tw-text-opacity: 1;
   color: rgb(162 44 52 / var(--tw-text-opacity));

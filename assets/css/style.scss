@@ -6,10 +6,10 @@
 /* Basic Animations */
 @import "magnific-popup.scss";
 /* Default Variables */
-$header-font: roboto-condensed, sans-serif;
-$body-font: "proxima-nova",sans-serif;
-$roboto: roboto-condensed, sans-serif;
-$button-font: "proxima-nova",sans-serif;
+$header-font: times_new_romanitalic, sans-serif;
+$body-font: "newspointbold",sans-serif;
+$roboto: times_new_romanitalic, sans-serif;
+$button-font: "newspointbold",sans-serif;
 $button-radius: 10px;
 $form-radius: 10px;
 $base-fontsize: 20px;
@@ -47,6 +47,10 @@ html, body {
   @media(max-width:939px){
     font-size:17px;
   }
+}
+
+ul > li {
+  font-family: "proxima-nova", sans-serif !important;
 }
 section.padding {
   padding: 2em 0;
